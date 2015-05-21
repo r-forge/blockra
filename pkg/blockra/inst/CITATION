@@ -1,0 +1,32 @@
+if(!exists("meta") || is.null(meta)) meta <- packageDescription("PeerPerformance")
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
+vers <- paste("version", meta$Version)
+
+citHeader("To cite 'blockra' in publications use:")
+
+citEntry(entry = "manual",
+	 title = "{BlockRa}: Fast block rearrangement of arrays",
+	 author = personList(person("Kris","Boudt"),
+                             person("Steven","Vanduffel"),
+                             person("Kristof","Verbeken")
+                             ),
+         year = year,
+	 note = vers,
+	 url = "https://r-forge.r-project.org/R/?group_id=2041",
+	 textVersion =
+         paste("Kris Boudt, Steven Vanduffel, Kristof Verbeken (", year,"). ",
+               "'BlockRa': Fast block rearrangement of arrays. ", vers, ".", sep = "")
+)
+
+citEntry(entry = "misc",
+	 title = "BRAVE",
+	 author = personList(person("Kris","Boudt"),
+                             person("Steven","Vanduffel"),
+                             person("Kristof","Verbeken")
+                             ),
+         year = "2014",
+         url = "http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2000901",
+	 textVersion =
+         paste("Kris Boudt, Steven Vanduffel, Kristof Verbeke (2014).",
+               "BRAVE.")
+)
