@@ -1,10 +1,10 @@
-\name{RA}
-\alias{RA}
-\title{RA}
+\name{ra}
+\alias{ra}
+\title{ra}
 \description{%
   Function which performs the traditional ra}
 \usage{%
-  RA(X, epsilon=0.1)
+  ra(X, epsilon=0.1)
 }
 \arguments{%
   \item{X}{array or matrix}
@@ -26,6 +26,6 @@
 
 }
 \seealso{%
-  \code{\link{BRA2}} and \code{\link{BRAVE}}.
+  \code{\link{bra}} and \code{\link{brave}}.
 }
 \keyword{RA}

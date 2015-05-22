@@ -2,7 +2,7 @@
 # Rearrangement Algorithm
 # 
 
-RA <- function(X, epsilon = 0.1) {
+ra <- function(X, epsilon = 0.1) {
   # Apply Rearrangement Algorithm until variance of row sums
   # is smaller than epsilon
   #

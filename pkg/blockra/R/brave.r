@@ -1,4 +1,4 @@
-BRAVE <- function(X, epsilon = 0.1) {
+brave <- function(X, epsilon = 0.1) {
   variance.new <- var(rowSums(X)) 
   variance.old <- 2 * variance.new
   iterations <- 0

@@ -1,10 +1,10 @@
-\name{BRAVE}
-\alias{BRAVE}
-\title{BRAVE}
+\name{brave}
+\alias{brave}
+\title{brave}
 \description{%
-  Function which performs BRAVE}
+  Function which performs brave}
 \usage{%
-  BRAVE(X, epsilon=0.1)
+  brave(X, epsilon=0.1)
 }
 \arguments{%
   \item{X}{array or matrix}
@@ -14,7 +14,7 @@
 
 }
 \value{%
-  \code{X}: rerranged matrix.\cr
+  \code{X}: rearranged matrix.\cr
 }
 \note{%
  
@@ -26,6 +26,6 @@
 
 }
 \seealso{%
-  \code{\link{BRA2}} and \code{\link{RA}}.
+  \code{\link{bra}} and \code{\link{ra}}.
 }
 \keyword{RA}
