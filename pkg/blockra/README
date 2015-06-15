@@ -1,3 +1,9 @@
 The package is still under development and is distributed without warranty.
 
-Thanks to report bugs or make suggestions to <kris.boudt@vub.ac.be>
+Thanks to report bugs or make suggestions to <kris.boudt@vub.ac.be>.
+
+TODO
+- toevoegen van preliminary data treatment ofwel niets (default keuze) ofwel randomniseren ofwel comonotoon maken.
+- datasimulatie functie toevoegen
+- documentatie
+- diagnostics: bv plot van rowsums voor en na rearrangement, performantie ?

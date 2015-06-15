@@ -1,10 +1,10 @@
 Package: blockra
-Version: 0.0.1
-Date: 2015-05-21
-Title: blockra
-Author: Kris Boudt and Steven Vanduffel and Kristof Verbeken 
-Maintainer: Kris Boudt <kris.boudt@vub.ac.be>
-Depends: 
-Suggests: 
-Description: This package provides functions for fast rearrangement of arrays.
-License: GPL (>=2)
+Title: Block Rearrangement Algorithm
+Version: 1.0
+Authors@R: c(person("Kris", "Boudt", email = "kris.boudt@vub.ac.be", role = "aut"),
+             person("Steven", "Vanduffel", email = "steven.vanduffel@vub.ac.be", role = "aut"),
+             person("Kristof", "Verbeken", email = "kristof.verbeken@vub.ac.be", role = c("aut", "cre")))
+Description: Block RA package containing multiple variants of the Rearrangement algorithm.
+Depends: R (>= 3.2.0)
+License: GPL-2
+LazyData: true
