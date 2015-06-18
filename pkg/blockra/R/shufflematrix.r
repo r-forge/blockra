@@ -3,6 +3,7 @@
 #' Permute randomly each column of the matrix, except for the first column
 #'
 #' @param X numeric array or matrix
+#' @param fix.first don't change the order of the first column
 #'
 #' @return randomly permuted numeric matrix
 #'

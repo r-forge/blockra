@@ -4,7 +4,7 @@
 \alias{brave}
 \title{Block ReArrangement Variance Equalizer}
 \usage{
-brave(X, epsilon = 0.1, shuffle = TRUE)
+brave(X, epsilon = 0.1, shuffle = TRUE, fix.first = TRUE, obj = var)
 }
 \arguments{
 \item{X}{numeric array or matrix}
@@ -12,6 +12,10 @@ brave(X, epsilon = 0.1, shuffle = TRUE)
 \item{epsilon}{target variance of row sums is epsilon multiplied by the mean of the matrix variances}
 
 \item{shuffle}{randomly permute each column of the matrix before rearrangement}
+
+\item{fix.first}{don't change the order of the first column}
+
+\item{obj}{objective function that is minimized, default is variance}
 }
 \value{
 numeric matrix with a minimal row sum variance

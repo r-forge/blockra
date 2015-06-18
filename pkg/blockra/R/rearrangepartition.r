@@ -3,6 +3,7 @@
 #' @param X numeric array or matrix
 #' @param partition binary partition vector with 1 representing block 1
 #' and 0 representing block 2
+#' @param fix.first don't change the order of the first column
 #'
 #' @return numeric matrix with a minimal row sum variance
 #'
