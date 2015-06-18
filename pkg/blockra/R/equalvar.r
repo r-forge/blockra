@@ -28,8 +28,11 @@
 #' @author Kristof Verbeken, \email{kristof.verbeken@@vub.ac.be}
 equalvar <- function(X) {
   swept       <- X - tcrossprod(rep(1, nrow(X)), colMeans(X))
-  covariances <- crossprod(swept, rowSums(swept)) / nrow(swept - 1)
-  covariances <- sort(covariances, index.return = TRUE)
+  covars <- crossprod(swept, rowSums(swept)) / nrow(swept - 1)
+  temp <- sort(abs(covars), index.return = TRUE)$ix
+  covariances <- {}
+  covariances$x <- covars
+  covariances$ix <- temp
   partition   <- rep(0, length(covariances$x))
 
   block1 <- 0
@@ -50,3 +53,5 @@ equalvar <- function(X) {
 
   return(partition)
 }
+
+
