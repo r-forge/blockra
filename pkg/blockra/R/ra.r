@@ -21,22 +21,30 @@
 #' @author Steven Vanduffel, \email{steven.vanduffel@@vub.ac.be}
 #' @author Kristof Verbeken, \email{kristof.verbeken@@vub.ac.be}
 ra <- function(X, epsilon = 0.1, shuffle = TRUE, fix.first = TRUE, obj = var) {
+  itermax = 1e3
   if (shuffle) X <- shufflematrix(X, fix.first)
 
   obj.new    <- obj(rowSums(X))
   obj.old    <- 2 * obj.new
   obj.target <- epsilon * mean(apply(X, 2, obj))
 
-  while ((obj.new > obj.target) && (obj.new < obj.old)) {
-
-    for (col in 1 : ncol(X)) {
-      current         <- sort(X[, col])
-      other.sums      <- rowSums(X[ , -col])
-      other.sums.rank <- rank(-other.sums, ties.method = "random")
-      X[, col]        <- current[other.sums.rank]
-    }
-    obj.old   <- obj.new
-    obj.new   <- obj(rowSums(X))
+  if (shuffle) 
+    X <- shufflematrix(X, fix.first)
+  obj.new <- obj(rowSums(X))
+  obj.old <- 2 * obj.new
+  obj.target <- epsilon * mean(apply(X, 2, obj))
+  col <- 1
+  citer <- 1
+  
+  while ((obj.new > obj.target) & citer<itermax) {
+    current <- sort(X[, col])
+    other.sums <- rowSums(X[, -col])
+    other.sums.rank <- rank(-other.sums, ties.method = "random")
+    X[, col] <- current[other.sums.rank]
+    obj.old <- obj.new
+    obj.new <- obj(rowSums(X))
+    if(col==ncol(X) ){col=1}else{col <- col+1 }
+    citer<- citer+1
   }
 
   return(X)
