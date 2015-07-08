@@ -27,6 +27,7 @@ brave <- function(X, epsilon = 0.1, shuffle = TRUE, fix.first = TRUE, obj = var)
   obj.target <- epsilon * mean(apply(X, 2, obj))
   citer <- 0
   while ((obj.new > obj.target) & (citer<itermax)  ) {
+    citer<- citer+1
     partition <- equalvar(X)
     X <- rearrangepartition(X, partition, fix.first)
     obj.old <- obj.new
@@ -37,7 +38,7 @@ brave <- function(X, epsilon = 0.1, shuffle = TRUE, fix.first = TRUE, obj = var)
       obj.old <- obj.new
       obj.new <- obj(rowSums(X))
     }
-    citer<- citer+1
   }
+  print(c("number of iterations to reach solution:",citer))
   return(X)
 }

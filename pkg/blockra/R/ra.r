@@ -34,9 +34,10 @@ ra <- function(X, epsilon = 0.1, shuffle = TRUE, fix.first = TRUE, obj = var) {
   obj.old <- 2 * obj.new
   obj.target <- epsilon * mean(apply(X, 2, obj))
   col <- 1
-  citer <- 1
+  citer <- 0
   
-  while ((obj.new > obj.target) & citer<itermax) {
+  while ((obj.new > obj.target) & (citer<itermax) ) {
+    citer<- citer+1
     current <- sort(X[, col])
     other.sums <- rowSums(X[, -col])
     other.sums.rank <- rank(-other.sums, ties.method = "random")
@@ -44,8 +45,8 @@ ra <- function(X, epsilon = 0.1, shuffle = TRUE, fix.first = TRUE, obj = var) {
     obj.old <- obj.new
     obj.new <- obj(rowSums(X))
     if(col==ncol(X) ){col=1}else{col <- col+1 }
-    citer<- citer+1
   }
+  print(c("number of iterations to reach solution:",citer))
 
   return(X)
 }

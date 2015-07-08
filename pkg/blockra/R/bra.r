@@ -28,10 +28,12 @@ bra <- function(X, epsilon = 0.1, shuffle = TRUE, fix.first = TRUE, obj = var) {
   obj.target <- epsilon * mean(apply(X, 2, obj))
   citer <- 0
   while ((obj.new > obj.target ) & (citer<itermax) ) {
+    citer <- citer+1
     partition <- sample(0:1, ncol(X), replace = TRUE)
     X <- rearrangepartition(X, partition, fix.first)
     obj.old <- obj.new
     obj.new <- obj(rowSums(X))
   }
+  print(c("number of iterations to reach solution:",citer))
   return(X)
 }
