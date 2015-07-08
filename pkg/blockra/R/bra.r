@@ -20,18 +20,16 @@
 #' @author Steven Vanduffel, \email{steven.vanduffel@@vub.ac.be}
 #' @author Kristof Verbeken, \email{kristof.verbeken@@vub.ac.be}
 bra <- function(X, epsilon = 0.1, shuffle = TRUE, fix.first = TRUE, obj = var) {
-  if (shuffle) X <- shufflematrix(X, fix.first)
-
-  obj.new    <- obj(rowSums(X))
-  obj.old    <- 2 * obj.new
+  if (shuffle) 
+    X <- shufflematrix(X, fix.first)
+  obj.new <- obj(rowSums(X))
+  obj.old <- 2 * obj.new
   obj.target <- epsilon * mean(apply(X, 2, obj))
-
-  while ((obj.new > obj.target) && (obj.new < obj.old)) {
-    partition <- sample(0 : 1, ncol(X), replace = TRUE)
-    X         <- rearrangepartition(X, partition, fix.first)
-    obj.old   <- obj.new
-    obj.new   <- obj(rowSums(X))
+  while ((obj.new > obj.target) ) {
+    partition <- sample(0:1, ncol(X), replace = TRUE)
+    X <- rearrangepartition(X, partition, fix.first)
+    obj.old <- obj.new
+    obj.new <- obj(rowSums(X))
   }
-
   return(X)
 }
