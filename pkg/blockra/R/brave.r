@@ -33,6 +33,7 @@ brave <- function(X, epsilon = 0.1, shuffle = TRUE, fix.first = TRUE, obj = var)
     obj.old <- obj.new
     obj.new <- obj(rowSums(X))
     if( (obj.new == obj.old) ){
+      print(c("random block choice at iteration:",citer));
       partition <- sample(0:1, ncol(X), replace = TRUE)
       X <- rearrangepartition(X, partition, fix.first) 
       obj.old <- obj.new
