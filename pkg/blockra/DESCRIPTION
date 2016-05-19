@@ -2,6 +2,7 @@ Package: blockra
 Title: Block Rearrangement Algorithm
 Version: 1.0
 Authors@R: c(person("Kris", "Boudt", email = "kris.boudt@vub.ac.be", role = c("aut", "cre")),
+             person("Edgars", "Jakobsons", email = "edgar.jakobsons@math.eth.cz", role = "aut"),
              person("Steven", "Vanduffel", email = "steven.vanduffel@vub.ac.be", role = "aut"),
              person("Kristof", "Verbeken", email = "kristof.verbeken@vub.ac.be", role = "aut" ))
 Description: Block RA package containing multiple variants of the Rearrangement algorithm.

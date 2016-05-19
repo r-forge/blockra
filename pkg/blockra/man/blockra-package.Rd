@@ -11,14 +11,14 @@ Provide algorithms for rearrangement of array to derive the dependence structure
 \tabular{ll}{
 Package: \tab blockra\cr
 Type: \tab Package\cr
-Version: \tab 1.0.0\cr
-Date: \tab 2015-05-22\cr
+Version: \tab 1.0\cr
+Date: \tab 2016-05-19\cr
 License: \tab GPL (>= 2) \cr
 }
 }
 
 \author{
-Kris Boudt, Steven Vanduffel, Kristof Verbeken
+Kris Boudt, Edgars Jakobsons, Steven Vanduffel, Kristof Verbeken
 
 Maintainer: Kris Boudt <Kris.Boudt@vub.ac.be>
 

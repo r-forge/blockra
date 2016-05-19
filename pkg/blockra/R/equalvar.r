@@ -21,9 +21,10 @@
 #'
 #' @keywords internal
 #'
-#' @references \url{Lhttp://en.wikipedia.org/wiki/Partition_problem#The_greedy_algorithm}
+#' @references \url{http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2634669}
 #'
 #' @author Kris Boudt, \email{kris.boudt@@vub.ac.be}
+#' @author Edgars Jakobsons, \email{edgars.jakobsons@math.ethz.ch}
 #' @author Steven Vanduffel, \email{steven.vanduffel@@vub.ac.be}
 #' @author Kristof Verbeken, \email{kristof.verbeken@@vub.ac.be}
 #' 

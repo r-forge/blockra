@@ -1,3 +1,23 @@
+#' Greedy algorithm
+#'
+#' Find partitions with equal sum 
+#'
+#' @param X numeric array or matrix
+#'
+#' @return numeric binary vector with the partition
+#'
+#' @export
+#'
+#' @keywords internal
+#'
+#' @references \url{http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2634669}
+#'
+#' @author Kris Boudt, \email{kris.boudt@@vub.ac.be}
+#' @author Edgars Jakobsons, \email{edgars.jakobsons@math.ethz.ch}
+#' @author Steven Vanduffel, \email{steven.vanduffel@@vub.ac.be}
+#' @author Kristof Verbeken, \email{kristof.verbeken@@vub.ac.be}
+#' 
+
 # To test:
 # nums<-round(runif(10,min=-100,max=100)); greed<-greedy(nums); kk<-KK(nums); print(c(greed,kk)); print(c(nums%*%(2*greed$partition-1),nums%*%(2*kk$partition-1)))
 

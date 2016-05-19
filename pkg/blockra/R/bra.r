@@ -3,10 +3,14 @@
 #' Function which performs the block ra of Bernard and McLeish
 #'
 #' @param X numeric array or matrix
-#' @param epsilon target variance of row sums is epsilon multiplied by the mean of the matrix variances
+#' @param f function of the rowsums to be minimized
 #' @param shuffle randomly permute each column of the matrix before rearrangement
-#' @param fix.first don't change the order of the first column
-#' @param obj objective function that is minimized, default is variance
+#' @param maxiter number of maximum iterations
+#' @param stalliter convergence if no improvement after stalliter iteration
+#' @param abs.tol abs convergence crit
+#' @param rel.tol relative convergence criterion
+#' @param f.target value of the objective function at which absolute converge is reached
+
 #'
 #' @return list of rearranged matrix, rowsums (descending), iterations, current objective, iterations of objective, whether converged
 #'
@@ -14,9 +18,10 @@
 #'
 #' @seealso The \code{\link{ra}} for the rearrangement algorithm
 #'
-#' @references \url{LINK TO RA PAPER}
+#' @references \url{http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2634669}
 #'
 #' @author Kris Boudt, \email{kris.boudt@@vub.ac.be}
+#' @author Edgars Jakobsons, \email{edgars.jakobsons@math.ethz.ch}
 #' @author Steven Vanduffel, \email{steven.vanduffel@@vub.ac.be}
 #' @author Kristof Verbeken, \email{kristof.verbeken@@vub.ac.be}
 #' 
