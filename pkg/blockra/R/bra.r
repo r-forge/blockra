@@ -8,7 +8,7 @@
 #' @param fix.first don't change the order of the first column
 #' @param obj objective function that is minimized, default is variance
 #'
-#' @return numeric matrix with a minimal row sum variance
+#' @return list of rearranged matrix, rowsums (descending), iterations, current objective, iterations of objective, whether converged
 #'
 #' @export
 #'
@@ -19,21 +19,43 @@
 #' @author Kris Boudt, \email{kris.boudt@@vub.ac.be}
 #' @author Steven Vanduffel, \email{steven.vanduffel@@vub.ac.be}
 #' @author Kristof Verbeken, \email{kristof.verbeken@@vub.ac.be}
-bra <- function(X, epsilon = 0.1, shuffle = TRUE, fix.first = TRUE, obj = var) {
-  itermax = 1e3
+#' 
+bra <- function(X, f=var, shuffle=T, maxiter=1e3, stalliter=ncol(X), abs.tol=0, rel.tol=0, f.target=-Inf) {
+  d<-ncol(X)
   if (shuffle) 
-    X <- shufflematrix(X, fix.first)
-  obj.new <- obj(rowSums(X))
-  obj.old <- 2 * obj.new
-  obj.target <- epsilon * mean(apply(X, 2, obj))
-  citer <- 0
-  while ((obj.new > obj.target ) & (citer<itermax) ) {
-    citer <- citer+1
-    partition <- sample(0:1, ncol(X), replace = TRUE)
-    X <- rearrangepartition(X, partition, fix.first)
-    obj.old <- obj.new
-    obj.new <- obj(rowSums(X))
+    X <- shufflematrix(X)
+  fiter<-rep(NA,maxiter)
+  niter <- 1
+  fval <- f(rowSums(X))
+  fprev<-Inf
+  fiter[1]<-fval
+  converged<-FALSE
+  
+  while ((fval>f.target)&&(niter<maxiter)&&(converged==F)) {
+    niter <- niter+1
+    partition <- sample(c(T,F), d, replace = TRUE)
+    X <- rearrangepartition(X,partition)
+    fval<-f(rowSums(X))
+    fiter[niter]<-fval
+    
+    if (niter>stalliter)
+      fprev<-fiter[niter-stalliter]
+    converged<-(fprev-fval)<=max(abs.tol,rel.tol*abs(fval))
   }
-  print(c("number of iterations to reach solution:",citer))
-  return(X)
+  
+  # sort according to decreasing rowsums
+  S<-rowSums(X)
+  ord<-order(S,decreasing=T)
+  S<-S[ord]
+  X<-X[ord,]
+  # prepare output
+  out<-{}
+  out$X<-X
+  out$S<-S
+  out$niter<-niter
+  out$fval<-fval
+  fiter<-fiter[1:niter]
+  out$fiter<-fiter
+  out$converged<-converged
+  return(out)
 }

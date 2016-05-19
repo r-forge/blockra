@@ -16,11 +16,6 @@
 #' @author Kris Boudt, \email{kris.boudt@@vub.ac.be}
 #' @author Steven Vanduffel, \email{steven.vanduffel@@vub.ac.be}
 #' @author Kristof Verbeken, \email{kristof.verbeken@@vub.ac.be}
-shufflematrix <- function(X, fix.first = TRUE) {
-  first.col <- X[, 1]
-  X <- apply(X, 2, sample)
-
-  if (fix.first) X[, 1] <- first.col
-
-  return(X)
+shufflematrix <- function(X) {
+  return(apply(X, 2, sample))
 }

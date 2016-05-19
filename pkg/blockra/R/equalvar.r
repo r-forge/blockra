@@ -26,27 +26,45 @@
 #' @author Kris Boudt, \email{kris.boudt@@vub.ac.be}
 #' @author Steven Vanduffel, \email{steven.vanduffel@@vub.ac.be}
 #' @author Kristof Verbeken, \email{kristof.verbeken@@vub.ac.be}
-equalvar <- function(X) {
-  swept       <- X - tcrossprod(rep(1, nrow(X)), colMeans(X))
-  covariances <- crossprod(swept, rowSums(swept)) / nrow(swept - 1)
-  covariances <- sort(covariances, index.return = TRUE, decreasing = TRUE)
-  partition   <- rep(0, length(covariances$x))
-
-  block1 <- 0
-  block2 <- 0
-
-  for (element in 1 : length(covariances$x)) {
-    value <- covariances$x[element]
-    index <- covariances$ix[element]
-
-    if ((value > 0 && block1 < block2) ||
-        (value < 0 && block1 > block2)) {
-      block1 <- block1 + value
-      partition[index] <- 1
-    } else {
-      block2 <- block2 + value
-    }
+#' 
+#' to test: d<-10; X<-matrix(runif(d^2,max=10),ncol=d); partition<-sample(c(T,F),d,replace=T); print(equalvar(X,partition,"greedy"));print(equalvar(X,partition,"KK"));
+equalvar <- function(X,partition.prev=logical(ncol(X)),method="KK") {
+  
+  d<-ncol(X)
+  if (!((length(partition.prev)==d)&&is.logical(partition.prev)&&is.vector(partition.prev)))
+    stop("previous partition is not a logical vector of length compatible with X")
+  
+  equalize<-switch(method,greedy=greedy,KK=KK,rapartition=rapartition,stop("Partitioning method not available!"))
+  partition<-logical(d)
+  
+  demean <- X - tcrossprod(rep(1, nrow(X)), colMeans(X))
+  covars <- crossprod(demean, rowSums(demean)) / (nrow(demean)-1)
+  
+  # make sure the first block is the smaller one
+  if (sum(partition.prev) > d/2) {
+    partition.prev=!partition.prev
+  }  
+  
+  partA<-equalize(covars[partition.prev])
+  partB<-equalize(c(partA$diff,covars[!partition.prev])) # we add the difference of previously assigned elements as the first number
+  
+  if (all(!partition.prev)){ # in case the (smaller) forst block is empty, take the partition of the larger block
+    partition <- partB$partition
   }
-
+  else{
+    
+    if (partB$partition[1]){  # combine the partitions: if the difference belongs to the F block, then invert partA$partition
+      partition[partition.prev] <- partA$partition
+    }
+    else{
+      partition[partition.prev] <- !partA$partition
+    }
+    partition[!partition.prev] <- partB$partition[-1]
+    
+  }
+  #cat(method,t(covars)%*%(2*partition-1),"\n")
+  
+  if(all(partition.prev==partition)){warning("Same partition as previously!")}
+  
   return(partition)
 }

@@ -12,7 +12,7 @@
 #' @author Kris Boudt, \email{kris.boudt@@vub.ac.be}
 #' @author Steven Vanduffel, \email{steven.vanduffel@@vub.ac.be}
 #' @author Kristof Verbeken, \email{kristof.verbeken@@vub.ac.be}
-rearrangepartition <- function(X, partition, fix.first = TRUE) {
+rearrangepartition <- function(X, partition) {
   if (!is.matrix(X)) {
     stop("matrix argument is a numeric matrix")
   }
@@ -21,7 +21,7 @@ rearrangepartition <- function(X, partition, fix.first = TRUE) {
     stop("partition is not a vector")
   }
 
-  if (length(partition[!partition %in% c(0, 1)]) > 0) {
+  if (!all(partition %in% c(T, F))) {
     stop("partition vector has elements that are not binary")
   }
 
@@ -29,21 +29,19 @@ rearrangepartition <- function(X, partition, fix.first = TRUE) {
     stop("Partition incompatible with matrix.")
   }
 
-  # Either fix the order of the first partition
-  # OR make sure the first block is the largest
-  if ((fix.first && partition[1] == 1) ||
-      (!fix.first && sum(partition) > length(partition) / 2)) {
-    partition[partition == 1] <- 2
-    partition[partition == 0] <- 1
-    partition[partition == 2] <- 0
+  # make sure the first block is the smaller one
+  if (sum(partition) > length(partition)/2) {
+    partition=!partition
   }
-
-  block1 <- X[, partition == 1]
-  block2 <- X[, partition == 0]
-
-  # rearrange block 1
-  block1.ra <- rearrange(block1, block2)
-  X[, partition == 1] <- block1.ra
-
+  
+  if (sum(partition)>0) # if the partition is nondegenerate, rearrange
+  {
+    block1 <- X[, partition]
+    block2 <- X[,!partition]
+    # rearrange block 1
+    block1 <- rearrange(block1, block2)
+    X[, partition] <- block1
+  }
+  
   return(X)
 }
